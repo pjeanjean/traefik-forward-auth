@@ -63,6 +63,11 @@ func ValidateEmail(email, ruleName string) bool {
 	// Use global config by default
 	whitelist := config.Whitelist
 	domains := config.Domains
+	denyempty := config.DenyEmptyEmail
+
+	if denyempty && len(email) == 0 {
+		return false
+	}
 
 	if rule, ok := config.Rules[ruleName]; ok {
 		// Override with rule config if found
